@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    {% if request.user.is_authenticated %}
+
+    <p>Hello, {{ request.user.name }}!</p>
+    <a href="{% url 'sign-out' %}">Sign Out</a>
+
+    {% else %}
+    <a href="{% url 'sign-in' %}">Sign In</a>
+
+    {% endif %}
+    <hr>
+</div>
+
+<div>
+    <form action="{% url 'home' %}" method="GET">
+        <input type="text" name="q" placeholder="Search Tasks">
+    </form>
+</div>
+
+<div>
+    <h1>Content/QC Task List</h1>
+    <a href="{% url 'create-task' %}">New Task</a>
+    <div>
+        <table>
+            <tr>
+                <th>Task Number</th>
+                <th>Client Name</th>
+                <th>Fotoage Link</th>
+                <th>Notes</th>
+                <th>Quantity</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Approval Status</th>
+            </tr>
+            {% for task in task_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'update-task' task.task_number %}">Edit</a>
+                    <a href="{% url 'delete-task' task.task_number %}">Delete</a>
+                    {{ task.task_number }}
+                </td>
+                <td>{{ task.client_name }}</td>
+                <td>{{ task.fotoage_link }}</td>
+                <td>{{ task.notes }}</td>
+                <td>{{ task.quantity }}</td>
+                <td>{{ task.start_date }}</td>
+                <td>{{ task.due_date }}</td>
+                <td>{{ task.approval_status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div>
+    <h1>To Do List</h1>
+    <a href="{% url 'create-todo' %}">New ToDo</a>
+    <div>
+        <table>
+            {% for todo in todoitems %}
+            <tr>
+                <td>
+                    <a href="{% url 'update-todo' todo.id %}">Edit</a>
+                    <a href="{% url 'delete-todo' todo.id %}">Delete</a>
+                </td>
+                <td>{{ todo.status }}</td>
+                <td>{{ todo.description }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

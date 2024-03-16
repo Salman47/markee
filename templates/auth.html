@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    #submit {
+        background-color: #12151e;
+        color: #aab2bd;
+        padding: 10px 20px;
+        border: 2px solid white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #submit:hover {
+        background-color: #12151e;
+    }
+</style>
+
+<div>
+    {% if messages %}
+    <ul class="messages">
+
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+
+    </ul>
+    {% endif %}
+</div>
+
+{% if page == 'signin' %}
+
+<div style="margin-top: 200px;">
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter Email Address">
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter Password">
+
+        <input type="submit" value="Sign In">
+        <br>
+        <br>
+        <p>Haven't Signed Up Yet?</p>
+        <a href="{% url 'sign-up' %}" id="submit">Sign Up</a>
+    </form>
+</div>
+
+{% else %}
+
+<div style="margin-top: 200px;">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Sign Up">
+    </form>
+    <p>Already Signed Up?</p>
+    <a href="{% url 'sign-in' %}">Sign In</a>
+</div>
+
+{% endif %}
+{% endblock %}

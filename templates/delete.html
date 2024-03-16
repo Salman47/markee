@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<style>
+    .container-form {
+        margin-top: 7%;
+        margin-left: 5%;
+    }
+
+    .submit {
+        background-color: #12151e;
+        color: #aab2bd;
+        padding: 10px 20px;
+        border: 2px solid white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .submit:hover {
+        background-color: #12151e;
+    }
+
+    .extra {
+        padding: 12.5px 18px;
+    }
+</style>
+
+<form method="POST" action="" class="container-form">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ obj }}"?</p>
+
+    <!-- goes to previous page -->
+    <a href="{{ request.META.HTTP_REFERER }}" class="submit extra">Go Back</a>
+
+    <input class="submit" type="submit" value="Confirm" />
+</form>
+
+{% endblock %}

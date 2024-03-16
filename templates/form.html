@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<style>
+    .add-task {
+        margin-left: 7%;
+        margin-top: 7%;
+    }
+
+    .add-task p input {
+        width: 80%;
+    }
+
+    .add-task p textarea {
+        width: 80%;
+        height: 100px;
+    }
+
+    .add-task label {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    #id_approval_status {
+        width: 80%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    #submit {
+        background-color: #12151e;
+        color: #aab2bd;
+        padding: 10px 20px;
+        border: 2px solid white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #submit:hover {
+        background-color: #12151e;
+    }
+</style>
+
+
+<div class="add-task">
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        {{form.as_p}}
+
+        <input id="submit" type="submit" value="Submit">
+    </form>
+</div>
+
+{% endblock %}
